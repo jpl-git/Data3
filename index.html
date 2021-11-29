@@ -1,0 +1,204 @@
+<h3>Jenna Landy, jpl323</h3>
+<html><head>
+  
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+  
+  </head>
+  <body>
+
+    <p id="p1">
+      <b>Problem 1 SVG:</b><br><br>
+  
+      <svg id = "first" height=300 width=300> </svg>
+
+      <script>
+        let svg1 = d3.select("svg#first");
+
+
+        svg1.append("circle")
+          .attr("cx", 150)
+          .attr("cy", 150)
+          .attr("r", 4)
+          .style("fill", "#FFB6C1")
+
+
+        svg1.append("text")
+          .text("INFO3300")
+          .attr("x", 150)
+          .attr("y", 150)
+          .style("dominant-baseline", "middle")
+          .style("text-anchor","middle")
+          .style("color", "black")
+          .style("border", "20px solid")
+          .style("font-family", "Verdana");
+
+        svg1.append("rect")
+          .attr("x", 100)
+          .attr("y", 80)
+          .attr("width", 30)
+          .attr("height", 20)
+          .style("fill", "#FF6F61")
+          .style("stroke", "#009B77")
+          .style("stroke-width", 3)
+        
+        svg1.append("rect")
+          .attr("x", 200)
+          .attr("y", 180)
+          .attr("width", 30)
+          .attr("height", 45)
+          .style("fill", "#88B04B")
+          .style("stroke", "#BC243C")
+          .style("stroke-width", 3)
+
+        svg1.append("rect")
+          .attr("x", 175)
+          .attr("y", 50)
+          .attr("width", 49)
+          .attr("height", 15)
+          .style("fill", "#F7CAC9")
+          .style("stroke", "#92A8D1")
+          .style("stroke-width", 3)
+        
+      </script>
+      
+  </p>
+
+  <p id="p2">
+    <b>Problem 2 SVG:</b><br><br>
+
+    <svg id = "second" height=360 width=360 style="border:1px solid rgb(154, 151, 151);"></svg>
+
+    <script>
+      let svg2 = d3.select("svg#second");
+      
+      data = [{"x":1.0 ,"y":9.0},
+              {"x":1.5 ,"y":6.0},
+              {"x":2.5 ,"y":4.0},
+              {"x":4.0 ,"y":2.0},
+              {"x":5.0 ,"y":1.6},
+              {"x":6.0 ,"y":2.4},
+              {"x":7.0 ,"y":3.0},
+              {"x":8.0 ,"y":3.4},
+              {"x":9.0 ,"y":3.6}]
+      
+      labels = [0,5,10]
+
+      let xScale = d3.scaleLinear()
+                     .domain([0,10])
+                     .range([20,340]);
+      
+      let yScale = d3.scaleLinear()
+                     .domain([0,10])
+                     .range([340,20]);
+      
+      
+      for (let i = 20; i <= 340; i+=32)
+        {
+          svg2.append("path")
+              .style("stroke", "rgb(179, 175, 175)")
+              .style("stroke-width", 1.75)
+              .attr("d", "M 20 "+ i + " H 340")
+          svg2.append("path")
+              .style("stroke", "rgb(179, 175, 175)")
+              .style("stroke-width", 1.75)
+              .attr("d", "M " + i + " 20 V 340")
+
+        }
+
+    
+      labels.forEach ( k => {
+             svg2.append("text")
+                 .text(k)
+                 .attr("x", xScale(k))
+                 .attr("y", 342)
+                 .attr("font","12px sans-serif")
+                 .attr("font-family", "Arial")
+                 .style("dominant-baseline","hanging")
+                 .style("text-anchor", "middle");
+
+              svg2.append("text")
+                 .text(k)
+                 .attr("x", 18)
+                 .attr("y", yScale(k))
+                 .attr("font","12px sans-serif")
+                 .attr("font-family", "Arial")
+                 .style("dominant-baseline","middle")
+                 .style("text-anchor", "end")
+              })
+      data.forEach ( k => {
+             svg2.append("circle")
+                 .attr("cx", xScale(k.x))
+                 .attr("cy", yScale(k.y))
+                 .attr("r",10)
+                 .attr("fill", "maroon")
+              })
+
+    </script>
+
+  </p>
+
+  <ul id="p3">
+    <br><br><b>Problem 3:</b><br><br>
+    
+    <li>
+    <b>A:</b>
+    <br> This is a sequential color scale (without a middle).
+    I do think this is an effective color scale. 
+    This is because hue and saturation covary, making differences very easy to spot (because multiple channels can be referenced).
+    <br><br>
+    </li>
+
+    <li>
+    <b>B:</b>
+    <br>This is not an effective color scale for this task. 
+    This is because the middle is not neutral, and rather appears to be a third peak. 
+    This may lead to confusion from users on what the neutral middleground actually indicates.
+    <br><br>
+    </li>
+
+    <li>
+    <b>C:</b>
+    <br>Using the pilestone.com simulator, it is evident that the scale is subjected to the following effects under various colorblindness anomalies:
+    <br>
+    <br>Deuteranomaly:
+    <br>Hues are different (duller) but hue variation is still visible
+    <br>
+    <br>Deuteranopia:
+    <br>Hues are different (blue-red tinted) but hue variation is still visible
+    <br>
+    <br>Protanomaly:
+    <br>Hues are different (duller) but hue variation is still visible
+    <br>
+    <br>Protanopia:
+    <br>Hues are different (purple-yellow tinted) but hue variation is still visible
+    <br>
+    <br>Tritanomaly:
+    <br><b>Hues variation is difficult to detect</b> (but still slightly visible) -- this scale appears to vary more in terms of luminance and saturation
+    <br>
+    <br>Tritanopia:
+    <br><b>Hues variation is very difficult to detect</b> -- this scale appears to vary in terms of luminance and saturation
+    <br>
+    <br>Monochromacy / Achromatopsia:
+    <br><b>Hues variation is not detectable</b> -- this scale appears to vary in terms of saturation
+    <br>
+    <br>Blue cone monochromacy:
+    <br><b>Hues variation is difficult to detect</b> (but still slightly visible) -- this scale appears to be duller, and to vary more in terms of luminance
+    <br>
+    <br>
+    </li>
+  
+    <li>
+    <b>D:</b>
+    <br> I would not recommend that the data scientist use this scale.
+    Firstly, the scale is not perceptually uniform -- there appear to be luminosity peaks in the cyan and yellow regions, which could be confusing as those are not representative of actual peaks in the data.
+    Second, a rainbow scale is an especially poor choice for representing ordinal, ratio, or interval data, because varying hue repeatedly (over a lot of hues) is not helpful for indicating greater or lesser values, such as average life expectancies;
+    without referencing a key, users will not have any indicators for how to compare values to each other.
+
+    <br><br>
+
+    </li>
+
+  </ul>
+
+  </body>
+  </html>
